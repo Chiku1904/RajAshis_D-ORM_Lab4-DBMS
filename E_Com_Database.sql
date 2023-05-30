@@ -9,7 +9,7 @@ create table Category(
 
 /* Q2:  Inserting  the following data in the table created above  */
 insert into Category values(1, "BOOKS"),
-						   (2, "GAMES"),
+			   (2, "GAMES"),
                            (3, "GROCERIES"),
                            (4, "ELECTRONICS"),
                            (5, "CLOTHES");
@@ -26,22 +26,22 @@ create table Product(
   
 /* Q2:  Inserting  the following data in the table created above  */
 insert into  Product values(1, "GTA V", "Windows 7 and above with i5 processor and 8GB RAM", 2),
-						   (2, "TSHIRT","SIZE-L with Black, Blue and White variations", 5),
+			   (2, "TSHIRT","SIZE-L with Black, Blue and White variations", 5),
                            (3, "ROG LAPTOP", "Windows 10 with 15inch screen, i7, 1TB SSD", 4),
                            (4, "OATS", "Highly Nutritious from Nestle", 3),
                            (5, "HARRY POTTER", "Best Collection of all time by J.K Rowling", 1),
                            (6, "MILK", "1L Toned MIlk",	3),
-						   (7, "Boat Earphones", "1.5Meter long Dolby Atmos", 4),
+			   (7, "Boat Earphones", "1.5Meter long Dolby Atmos", 4),
                            (8, "Jeans", "Denim Jeans with various sizes and color", 5),
-						   (9,"Project IGI", "compatible with windows 7 and above", 2),
+			   (9,"Project IGI", "compatible with windows 7 and above", 2),
                            (10, "Hoodie", "Black GUCCI for 13 yrs and above", 5),
                            (11, "Rich Dad Poor Dad", "Written by RObert Kiyosaki", 1),
-						   (12 ,"Train Your Brain", "By Shireen Stephen", 1);
+			   (12 ,"Train Your Brain", "By Shireen Stephen", 1);
                            
 
 /* Q1:  creating table for 'Supplier' to store the data for the E-commerce   */                           
 create table Supplier(
-					  SUPP_ID int primary key,
+		      SUPP_ID int primary key,
                       SUPP_NAME varchar(50) not null,
                       SUPP_CITY varchar(50)not null,
                       SUPP_PHONE varchar(50)not null
@@ -49,8 +49,8 @@ create table Supplier(
                       
 /* Q2:  Inserting  the following data in the table created above  */                      
 insert into Supplier values(1, "Rajesh Retails", "Delhi", "1234567890"),
-						   (2, "Appario Ltd.", "Mumbai", "2589631470"),
-						   (3, "Knome products", "Banglore", "9785462315"),
+			   (2, "Appario Ltd.", "Mumbai", "2589631470"),
+			   (3, "Knome products", "Banglore", "9785462315"),
                            (4, "Bansal Retails", "Kochi", "8975463285"),
                            (5, "Mittal Ltd.", "Lucknow", "7898456532");                          
                            
@@ -70,17 +70,17 @@ create table Supplier_Pricing(
                               
 /* Q2:  Inserting  the following data in the table created above  */
 insert into Supplier_Pricing values(1, 1, 2, 1500),
-								   (2, 3, 5, 30000),
+				   (2, 3, 5, 30000),
                                    (3, 5, 1, 3000),
                                    (4, 2, 3, 2500),
                                    (5, 4, 1, 1000),
                                    (6, 12, 2, 780),
-								   (7, 12, 4, 789),
+				   (7, 12, 4, 789),
                                    (8, 3, 1, 31000),
                                    (9, 1, 5, 1450),
                                    (10, 4, 1, 999),
                                    (11, 7, 3, 549),
-								   (12, 7, 4, 529),
+				   (12, 7, 4, 529),
                                    (13, 6, 2, 105),
                                    (14, 6, 1, 99),
                                    (15, 2, 5, 2999),
@@ -111,15 +111,15 @@ insert into Customers values(1, "AAKASH", "9999999999", "DELHI", 'M'),
                             
  /* Q1:  creating table for 'Orders' to store the data for the E-commerce   */  
 create table Orders(
-					ORD_ID int primary key,
+		    ORD_ID int primary key,
                     ORD_DATE date not null,
                     CUS_ID int,
                     PRICING_ID int,
                     foreign key(CUS_ID)
-					references Customers(CUS_ID),
-					foreign key(PRICING_ID)
-					references Supplier_Pricing(PRICING_ID)
-					);
+	    	    references Customers(CUS_ID),
+     		    foreign key(PRICING_ID)
+		    references Supplier_Pricing(PRICING_ID)
+		    );
                     
  /* Q2:  Inserting  the following data in the table created above  */
 insert into Orders values
@@ -169,9 +169,8 @@ INSERT INTO Ratings VALUES
 												
 
 
-/*Ans of Q3:- Displaying the total number of customers 
-based on gender who have placed orders of worth at least Rs.3000 */
-
+/*Ans of Q3:- Displaying the total number of customers based on gender who have placed orders of worth at least Rs.3000 */
+--------------------------------------------------------------------------------------------------------------------------------
 select count(Customers.CUS_ID) AS TOTAL_CUSTOMERS, Customers.CUS_GENDER AS CUSTOMERS_GENDER
 from Customers
  inner join orders 
@@ -182,9 +181,8 @@ USING(PRICING_ID)
  
 
 
-/* Ans of Q4:-	Displaying all the orders along with product name 
-ordered by a customer having Customer_Id=2 */
-
+/* Ans of Q4:-	Displaying all the orders along with product name ordered by a customer having Customer_Id=2 */
+--------------------------------------------------------------------------------------------------------------------
 select Product.PRO_ID, Product.PRO_NAME AS PRODUCTS, Product.PRO_DESC, Orders.* FROM Product 
 INNER JOIN Supplier_Pricing USING (PRO_ID)
 INNER JOIN ORDERS USING(PRICING_ID)
@@ -192,7 +190,7 @@ INNER JOIN Customers USING(CUS_ID) WHERE Customers.CUS_ID=2;
 
 
 /* Ans of Q5:-	Displaying the Supplier details who can supply more than one product */
-
+----------------------------------------------------------------------------------------------
 select SUPP_NAME, count(SUPP_ID) as Total_No_of_Products, SUPP_CITY, SUPP_PHONE
 from Supplier 
 inner join Supplier_Pricing
@@ -200,9 +198,8 @@ using(SUPP_ID)
 INNER JOIN PRODUCT USING (PRO_ID) group by supp_id having count(pro_ID)>1;
 
 
-/* Ans of Q6:-	Displaying the least expensive product from each category and 
-print the table with category id, name, product name and price of the product */
-
+/* Ans of Q6:-	Displaying the least expensive product from each category and print the table with category id, name, product name and price of the product */
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
 select Category.CAT_ID,Category.CAT_NAME, MIN(SubQuery1.Min_Price) as Min_Price from Category inner join
 (select Product.CAT_ID, Product.PRO_NAME, SubQuery2.* from Product inner join  
 (select PRO_ID, MIN(SUPP_PRICE) as Min_Price from Supplier_Pricing group by PRO_ID) 
@@ -212,6 +209,7 @@ as SubQuery1 where SubQuery1.CAT_ID = Category.CAT_ID group by SubQuery1.CAT_ID;
 
 
 /* Ans of Q7:-  Displaying the Id and Name of the Product ordered after “2021-10-05” */
+-------------------------------------------------------------------------------------------
 
 select PRO_ID, PRO_NAME from Product
 inner join Supplier_Pricing using(PRO_ID)
@@ -224,13 +222,17 @@ where PRO_ID in
 
 
 /* Ans of Q8:-  Displaying customer name and gender whose names start or end with character 'A' */
-
+------------------------------------------------------------------------------------------------------
 select CUS_NAME, CUS_GENDER from Customers where CUS_NAME like '%A' or CUS_NAME like 'A%';
 
-/* Ans of Q9:-  Creating a stored procedure to display supplier id, name, rating and Type_of_Service. For Type_of_Service, 
-If rating =5, print “Excellent Service”,If rating >4 print “Good Service”,
- If rating >2 print “Average Service” else print “Poor Service” */
 
+
+/* Ans of Q9:-  Creating a stored procedure to display supplier id, name, rating and Type_of_Service. For Type_of_Service, 
+If rating =5, print “Excellent Service”,
+If rating >4 print “Good Service”,
+If rating >2 print “Average Service” 
+else print “Poor Service” */
+----------------------------------------------------------------------------------------------------------------------------
 DELIMITER //
 CREATE PROCEDURE `ServiceFeedback` ()
 BEGIN
